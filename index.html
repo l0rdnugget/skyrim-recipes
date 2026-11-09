@@ -1,0 +1,589 @@
+<!DOCTYPE html>
+<!--
+  A Taste of Skyrim
+  ITS335 Portfolio Project: Final Web Page
+  Author: Marisol Astin
+
+  File layout:
+    1. <head>    - page settings, fonts, and all CSS styles
+    2. <header>  - page title and tagline
+    3. <nav>     - menu that links to each section on the page
+    4. <main>    - hero image, About, and three recipe sections
+    5. <footer>  - author, course, and source credits
+-->
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>A Taste of Skyrim | Recipes from Tamriel</title>
+
+    <!-- Google Fonts: Cinzel for headings, Lora for body text -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700&family=Lora:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+
+    <style>
+      /* ==================================================
+         1. COLOR AND FONT VARIABLES
+         Change a value here to update it across the page.
+         ================================================== */
+      :root {
+        --color-parchment: #f4ecd8;
+        --color-parchment-dark: #e6d9b8;
+        --color-brown: #3b2a1a;
+        --color-slate: #2f4a5a;
+        --color-gold: #b8892f;
+        --color-purple: #6b3f7a;
+        --color-green: #4a5d3a;
+        --color-white: #fffdf7;
+
+        --font-heading: "Cinzel", Georgia, serif;
+        --font-body: "Lora", Georgia, serif;
+      }
+
+      /* ==================================================
+         2. BASE STYLES
+         ================================================== */
+      * {
+        box-sizing: border-box;
+      }
+
+      html {
+        scroll-behavior: smooth;   /* menu links glide to each section */
+      }
+
+      body {
+        margin: 0;
+        background-color: var(--color-parchment);
+        color: var(--color-brown);
+        font-family: var(--font-body);
+        font-size: 1.05rem;
+        line-height: 1.7;
+      }
+
+      h1,
+      h2,
+      h3 {
+        font-family: var(--font-heading);
+        line-height: 1.25;
+      }
+
+      h2 {
+        color: var(--color-slate);
+        font-size: 2rem;
+        margin-top: 0;
+      }
+
+      h3 {
+        color: var(--color-gold);
+        font-size: 1.2rem;
+        border-bottom: 2px solid var(--color-gold);
+        padding-bottom: 0.25rem;
+      }
+
+      h4 {
+        margin-bottom: 0.25rem;
+        font-style: italic;
+      }
+
+      /* ==================================================
+         3. HEADER
+         ================================================== */
+      .site-header {
+        background: linear-gradient(180deg, var(--color-slate), #1f3340);
+        color: var(--color-parchment);
+        text-align: center;
+        padding: 2.5rem 1rem 2rem;
+        border-bottom: 4px solid var(--color-gold);
+      }
+
+      .site-title {
+        margin: 0;
+        font-size: 3rem;
+        letter-spacing: 0.08em;
+        color: var(--color-parchment);
+      }
+
+      .site-tagline {
+        margin: 0.5rem 0 0;
+        font-style: italic;
+        color: var(--color-parchment-dark);
+      }
+
+      /* ==================================================
+         4. NAVIGATION MENU
+         Stays at the top of the screen while scrolling.
+         ================================================== */
+      .main-nav {
+        position: sticky;
+        top: 0;
+        z-index: 10;
+        background-color: var(--color-brown);
+        box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
+      }
+
+      .nav-list {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 0.25rem;
+        margin: 0;
+        padding: 0.5rem;
+        list-style: none;
+      }
+
+      .nav-link {
+        display: block;
+        padding: 0.5rem 1rem;
+        color: var(--color-parchment);
+        font-family: var(--font-heading);
+        font-weight: 600;
+        text-decoration: none;
+        border-radius: 4px;
+        transition: background-color 0.2s, color 0.2s;
+      }
+
+      .nav-link:hover,
+      .nav-link:focus {
+        background-color: var(--color-gold);
+        color: var(--color-brown);
+      }
+
+      /* ==================================================
+         5. PAGE LAYOUT AND SECTIONS
+         ================================================== */
+      .page-content {
+        max-width: 1000px;
+        margin: 0 auto;
+        padding: 0 1rem;
+      }
+
+      .page-section {
+        background-color: var(--color-white);
+        border: 1px solid var(--color-parchment-dark);
+        border-top: 6px solid var(--color-slate);
+        border-radius: 8px;
+        margin: 2rem 0;
+        padding: 2rem;
+        box-shadow: 0 3px 10px rgba(59, 42, 26, 0.12);
+        scroll-margin-top: 70px;   /* keeps headings from hiding under the menu */
+      }
+
+      .recipe-meta {
+        display: inline-block;
+        background-color: var(--color-parchment);
+        border-left: 4px solid var(--color-gold);
+        padding: 0.4rem 0.8rem;
+        font-size: 0.95rem;
+      }
+
+      /* Decorative divider between sections */
+      .section-divider {
+        text-align: center;
+        color: var(--color-gold);
+        font-size: 1.5rem;
+        letter-spacing: 1rem;
+      }
+
+      /* ==================================================
+         6. HERO IMAGE
+         ================================================== */
+      .hero {
+        margin: 2rem 0 0;
+        text-align: center;
+      }
+
+      .hero-image {
+        width: 100%;
+        max-width: 640px;
+        height: auto;
+        border: 6px solid var(--color-white);
+        border-radius: 8px;
+        box-shadow: 0 6px 18px rgba(0, 0, 0, 0.25);
+      }
+
+      .image-caption {
+        font-style: italic;
+        font-size: 0.95rem;
+        margin-top: 0.5rem;
+      }
+
+      /* ==================================================
+         7. RECIPE LAYOUT
+         Ingredients and directions sit side by side on
+         wide screens and stack on phones (see section 9).
+         ================================================== */
+      .recipe-figure {
+        float: right;
+        width: 220px;
+        margin: 0 0 1rem 1.5rem;
+        text-align: center;
+      }
+
+      .recipe-image {
+        width: 100%;
+        height: auto;
+        border-radius: 8px;
+        background-color: var(--color-parchment);
+        transition: transform 0.3s;
+      }
+
+      .recipe-image:hover {
+        transform: scale(1.05) rotate(-2deg);   /* small hover animation */
+      }
+
+      .recipe-columns {
+        clear: both;
+        display: grid;
+        grid-template-columns: 1fr 1.6fr;
+        gap: 2rem;
+      }
+
+      .ingredient-list li {
+        margin-bottom: 0.3rem;
+      }
+
+      .ingredient-list li::marker {
+        color: var(--color-gold);
+      }
+
+      .direction-list li {
+        margin-bottom: 0.75rem;
+        padding-left: 0.25rem;
+      }
+
+      .direction-list li::marker {
+        color: var(--color-slate);
+        font-family: var(--font-heading);
+        font-weight: 700;
+      }
+
+      .recipe-tip {
+        background-color: var(--color-parchment);
+        border-left: 4px solid var(--color-green);
+        padding: 0.75rem 1rem;
+        border-radius: 4px;
+      }
+
+      /* Skooma gets a purple accent to match the drink */
+      .skooma-section {
+        border-top-color: var(--color-purple);
+      }
+
+      .skooma-section h2 {
+        color: var(--color-purple);
+      }
+
+      /* Main dish gets a green accent */
+      .stew-section {
+        border-top-color: var(--color-green);
+      }
+
+      /* ==================================================
+         8. FOOTER
+         ================================================== */
+      .site-footer {
+        background-color: var(--color-brown);
+        color: var(--color-parchment-dark);
+        text-align: center;
+        padding: 1.5rem 1rem;
+        font-size: 0.9rem;
+        border-top: 4px solid var(--color-gold);
+      }
+
+      .back-to-top {
+        color: var(--color-gold);
+        font-family: var(--font-heading);
+        font-weight: 600;
+      }
+
+      /* ==================================================
+         9. RESPONSIVE STYLES FOR SMALL SCREENS
+         ================================================== */
+      @media (max-width: 700px) {
+        .site-title {
+          font-size: 2rem;
+        }
+
+        .page-section {
+          padding: 1.25rem;
+        }
+
+        .recipe-figure {
+          float: none;
+          width: 70%;
+          margin: 0 auto 1rem;
+        }
+
+        .recipe-columns {
+          grid-template-columns: 1fr;
+          gap: 0;
+        }
+      }
+    </style>
+  </head>
+
+  <body>
+
+    <!-- SVG image library: each dish is drawn once here and shown below with <use> -->
+    <svg width="0" height="0" style="position: absolute" aria-hidden="true">
+      <!-- Sweet roll: glazed bundt-style ring on a plate -->
+      <symbol id="art-sweet-roll" viewBox="0 0 320 240">
+        <rect width="320" height="240" fill="#e9dcbc"/>
+        <ellipse cx="160" cy="185" rx="130" ry="30" fill="#fffdf7" stroke="#cbb88f" stroke-width="3"/>
+        <ellipse cx="160" cy="150" rx="95" ry="50" fill="#a8652a"/>
+        <ellipse cx="160" cy="135" rx="95" ry="48" fill="#c98a45"/>
+        <path d="M70 128 Q90 92 160 88 Q230 92 250 128 Q240 140 232 150 Q228 136 220 150 Q212 160 205 146 Q190 160 178 148 Q166 162 152 150 Q138 160 128 146 Q114 158 104 144 Q94 152 88 140 Q80 148 70 128 Z" fill="#fbf6ec"/>
+        <ellipse cx="160" cy="122" rx="30" ry="14" fill="#7a4a1e"/>
+        <circle cx="120" cy="108" r="3" fill="#e9dcbc"/>
+        <circle cx="198" cy="104" r="3" fill="#e9dcbc"/>
+      </symbol>
+
+      <!-- Skooma: purple drink in a small glass bottle -->
+      <symbol id="art-skooma" viewBox="0 0 240 240">
+        <rect width="240" height="240" fill="#ece0f0"/>
+        <rect x="104" y="40" width="32" height="34" rx="4" fill="#cfd8dc" stroke="#7a7a7a" stroke-width="2"/>
+        <rect x="100" y="30" width="40" height="14" rx="3" fill="#8b5a2b"/>
+        <path d="M104 74 Q60 100 64 160 Q66 200 120 204 Q174 200 176 160 Q180 100 136 74 Z" fill="#6b3f7a" stroke="#3e2347" stroke-width="3"/>
+        <path d="M80 112 Q78 150 88 180" stroke="#c9a6d6" stroke-width="6" fill="none" stroke-linecap="round"/>
+        <circle cx="140" cy="150" r="5" fill="#a879b8"/>
+        <circle cx="128" cy="172" r="3" fill="#a879b8"/>
+      </symbol>
+
+      <!-- Apple cabbage stew: bowl of stew with apple slices -->
+      <symbol id="art-stew" viewBox="0 0 240 240">
+        <rect width="240" height="240" fill="#e3e8d6"/>
+        <ellipse cx="120" cy="118" rx="92" ry="30" fill="#c5893f"/>
+        <ellipse cx="120" cy="118" rx="80" ry="22" fill="#b5632e"/>
+        <path d="M28 118 Q34 196 120 200 Q206 196 212 118 Z" fill="#6f4a2a" stroke="#3b2a1a" stroke-width="3"/>
+        <ellipse cx="96" cy="114" rx="16" ry="6" fill="#9fbf6a"/>
+        <ellipse cx="146" cy="120" rx="14" ry="5" fill="#9fbf6a"/>
+        <path d="M120 106 Q132 100 140 110 Q130 114 120 106 Z" fill="#f2e3b3" stroke="#c0392b" stroke-width="2"/>
+        <path d="M78 124 Q88 118 96 126 Q86 130 78 124 Z" fill="#f2e3b3" stroke="#c0392b" stroke-width="2"/>
+        <path d="M100 70 Q92 58 102 46 M124 70 Q116 56 126 42 M148 70 Q140 58 150 46" stroke="#a8a8a8" stroke-width="3" fill="none" stroke-linecap="round"/>
+      </symbol>
+    </svg>
+
+    <!-- ===== HEADER ===== -->
+    <header class="site-header" id="top">
+      <h1 class="site-title">A Taste of Skyrim</h1>
+      <p class="site-tagline">Tavern food from The Elder Scrolls V: Skyrim, made in a real kitchen.</p>
+    </header>
+
+    <!-- ===== NAVIGATION MENU: each link jumps to a section id ===== -->
+    <nav class="main-nav" aria-label="Main menu">
+      <ul class="nav-list">
+        <li><a class="nav-link" href="#about">About</a></li>
+        <li><a class="nav-link" href="#sweet-rolls">Sweet Rolls</a></li>
+        <li><a class="nav-link" href="#skooma">Skooma</a></li>
+        <li><a class="nav-link" href="#apple-cabbage-stew">Main Dish</a></li>
+      </ul>
+    </nav>
+
+    <main class="page-content">
+
+      <!-- ===== HERO IMAGE: the finished featured dish ===== -->
+      <figure class="hero">
+        <svg class="hero-image" viewBox="0 0 320 240" role="img" aria-label="A glazed sweet roll on a white plate">
+          <use href="#art-sweet-roll"/>
+        </svg>
+        <figcaption class="image-caption">Fresh sweet rolls with vanilla glaze, the featured recipe.</figcaption>
+      </figure>
+
+      <!-- ===== ABOUT: introductory paragraph ===== -->
+      <section class="page-section" id="about">
+        <h2>About This Page</h2>
+        <p>
+          Skyrim is a game I keep coming back to, usually when life gets stressful.
+          There is something cozy about it: the snowy mountains, the taverns with a
+          fire going, and a story I know well enough that it feels like comfort instead
+          of a challenge. Years ago I bought The Elder Scrolls: The Official Cookbook
+          and never actually cooked from it. This page is my excuse to finally use it.
+        </p>
+        <p>
+          My featured recipe is the sweet roll, the most famous food in the game. I am
+          also including skooma, Skyrim's infamous purple drink, made here as a
+          harmless fruit mocktail, and a hearty apple cabbage stew as a main dish.
+          Together they make a full tavern meal.
+        </p>
+      </section>
+
+      <p class="section-divider" aria-hidden="true">&#10022; &#10022; &#10022;</p>
+
+      <!-- ===== RECIPE 1: Sweet Rolls (featured recipe) ===== -->
+      <section class="page-section" id="sweet-rolls">
+        <figure class="recipe-figure">
+          <svg class="recipe-image" viewBox="0 0 320 240" role="img" aria-label="Glazed sweet roll">
+            <use href="#art-sweet-roll"/>
+          </svg>
+          <figcaption class="image-caption">Glazed and ready to serve</figcaption>
+        </figure>
+
+        <h2>Sweet Rolls</h2>
+        <p>
+          Soft, lightly sweet yeast rolls baked in a bundt-style pan and finished with a
+          thick vanilla glaze.
+        </p>
+        <p class="recipe-meta">
+          Makes 12 rolls &middot; Prep 30 min &middot; Rise 1 hr 45 min &middot; Bake 18&ndash;22 min
+        </p>
+
+        <div class="recipe-columns">
+          <!-- Ingredients column -->
+          <div class="recipe-ingredients">
+            <h3>Ingredients</h3>
+
+            <h4>For the dough</h4>
+            <ul class="ingredient-list">
+              <li>1 cup whole milk, warmed to about 110&deg;F</li>
+              <li>2 1/4 teaspoons (1 packet) active dry yeast</li>
+              <li>1/4 cup granulated sugar</li>
+              <li>1/3 cup unsalted butter, melted</li>
+              <li>2 large eggs, at room temperature</li>
+              <li>1 teaspoon salt</li>
+              <li>4 cups all-purpose flour, plus extra for kneading</li>
+            </ul>
+
+            <h4>For the glaze</h4>
+            <ul class="ingredient-list">
+              <li>1 1/2 cups powdered sugar</li>
+              <li>2 to 3 tablespoons milk</li>
+              <li>1 teaspoon vanilla extract</li>
+              <li>1 tablespoon unsalted butter, melted</li>
+            </ul>
+          </div>
+
+          <!-- Directions column -->
+          <div class="recipe-directions">
+            <h3>Directions</h3>
+            <ol class="direction-list">
+              <li>Pour the warm milk into a large bowl and stir in the yeast and 1 teaspoon of the sugar. Let it sit for 5 to 10 minutes, until the top is foamy.</li>
+              <li>Add the rest of the sugar, the melted butter, the eggs, and the salt. Whisk until everything is combined.</li>
+              <li>Stir in the flour one cup at a time until a soft dough forms and pulls away from the sides of the bowl.</li>
+              <li>Turn the dough out onto a floured surface and knead for 6 to 8 minutes, until it is smooth and springs back when you press it.</li>
+              <li>Place the dough in a greased bowl, cover it with a towel, and let it rise in a warm spot for about 1 hour, until doubled in size.</li>
+              <li>Grease a 12-cup mini bundt pan or a standard muffin tin. Punch down the dough and divide it into 12 equal pieces.</li>
+              <li>Roll each piece into a rope about 8 inches long, pinch the ends together to form a ring, and press it into a cup of the pan.</li>
+              <li>Cover the pan and let the rolls rise again for 30 to 45 minutes, until puffy. Meanwhile, preheat the oven to 350&deg;F.</li>
+              <li>Bake for 18 to 22 minutes, until the tops are golden brown. Let the rolls cool in the pan for 10 minutes, then turn them out onto a wire rack.</li>
+              <li>Whisk the powdered sugar, milk, vanilla, and melted butter into a thick glaze. Spoon it over the cooled rolls and let it drip down the sides.</li>
+            </ol>
+          </div>
+        </div>
+
+        <p class="recipe-tip">
+          <strong>Tip:</strong> Let the rolls cool completely before glazing, or the glaze
+          will melt and run off. Sweet rolls are best the day they are made, but they keep
+          in an airtight container for up to two days.
+        </p>
+      </section>
+
+      <p class="section-divider" aria-hidden="true">&#10022; &#10022; &#10022;</p>
+
+      <!-- ===== RECIPE 2: Skooma (drink) ===== -->
+      <section class="page-section skooma-section" id="skooma">
+        <figure class="recipe-figure">
+          <svg class="recipe-image" viewBox="0 0 240 240" role="img" aria-label="Purple skooma drink in a small glass bottle">
+            <use href="#art-skooma"/>
+          </svg>
+          <figcaption class="image-caption">Served in a small bottle</figcaption>
+        </figure>
+
+        <h2>Skooma</h2>
+        <p>
+          In the game, skooma is a forbidden substance sold in a purple bottle. This
+          version is a sweet, fizzy, completely legal fruit drink with the same deep
+          purple color.
+        </p>
+        <p class="recipe-meta">Makes 2 servings &middot; Prep 5 min</p>
+
+        <div class="recipe-columns">
+          <div class="recipe-ingredients">
+            <h3>Ingredients</h3>
+            <ul class="ingredient-list">
+              <li>1 cup grape juice</li>
+              <li>1/2 cup blackberries, fresh or frozen</li>
+              <li>1 tablespoon honey</li>
+              <li>1 tablespoon fresh lemon juice</li>
+              <li>1 cup sparkling water, chilled</li>
+              <li>Ice cubes</li>
+            </ul>
+          </div>
+
+          <div class="recipe-directions">
+            <h3>Directions</h3>
+            <ol class="direction-list">
+              <li>In a glass or shaker, mash the blackberries with the honey and lemon juice until the berries break down.</li>
+              <li>Stir in the grape juice, then strain the mixture to remove the seeds.</li>
+              <li>Fill two glasses with ice, divide the juice mixture between them, and top each glass with sparkling water.</li>
+              <li>Stir gently and serve right away, ideally in a small glass bottle for the full Skyrim effect.</li>
+            </ol>
+          </div>
+        </div>
+      </section>
+
+      <p class="section-divider" aria-hidden="true">&#10022; &#10022; &#10022;</p>
+
+      <!-- ===== RECIPE 3: Apple Cabbage Stew (main dish) ===== -->
+      <section class="page-section stew-section" id="apple-cabbage-stew">
+        <figure class="recipe-figure">
+          <svg class="recipe-image" viewBox="0 0 240 240" role="img" aria-label="Bowl of apple cabbage stew">
+            <use href="#art-stew"/>
+          </svg>
+          <figcaption class="image-caption">Warm and hearty</figcaption>
+        </figure>
+
+        <h2>Apple Cabbage Stew</h2>
+        <p>
+          A simple, filling stew that shows up in cooking pots all over Skyrim. Sweet
+          apples balance the cabbage, and smoked sausage makes it a full meal.
+        </p>
+        <p class="recipe-meta">Makes 4 servings &middot; Prep 15 min &middot; Cook 40 min</p>
+
+        <div class="recipe-columns">
+          <div class="recipe-ingredients">
+            <h3>Ingredients</h3>
+            <ul class="ingredient-list">
+              <li>2 tablespoons butter</li>
+              <li>1 medium onion, diced</li>
+              <li>12 ounces smoked sausage, sliced into rounds</li>
+              <li>1/2 head green cabbage, chopped (about 6 cups)</li>
+              <li>2 apples, peeled and chopped</li>
+              <li>2 medium potatoes, cut into 1-inch cubes</li>
+              <li>4 cups chicken or vegetable broth</li>
+              <li>1 tablespoon apple cider vinegar</li>
+              <li>1 teaspoon dried thyme</li>
+              <li>1/2 teaspoon salt and 1/4 teaspoon black pepper</li>
+            </ul>
+          </div>
+
+          <div class="recipe-directions">
+            <h3>Directions</h3>
+            <ol class="direction-list">
+              <li>Melt the butter in a large pot over medium heat. Add the onion and cook for 5 minutes, until soft.</li>
+              <li>Add the sausage and cook for another 5 minutes, stirring, until lightly browned.</li>
+              <li>Stir in the cabbage, apples, and potatoes, and cook for 3 to 4 minutes, until the cabbage starts to wilt.</li>
+              <li>Pour in the broth and add the thyme, salt, and pepper. Bring the pot to a boil.</li>
+              <li>Lower the heat, cover, and simmer for 25 to 30 minutes, until the potatoes are tender.</li>
+              <li>Stir in the apple cider vinegar, taste, and add more salt if needed. Serve hot with crusty bread.</li>
+            </ol>
+          </div>
+        </div>
+      </section>
+
+    </main>
+
+    <!-- ===== FOOTER: author, course, and source credits ===== -->
+    <footer class="site-footer">
+      <p><a class="back-to-top" href="#top">&#9650; Back to top</a></p>
+      <p>Created by Marisol Astin for ITS335, Colorado State University Global.</p>
+      <p>
+        Recipes inspired by The Elder Scrolls: The Official Cookbook by Chelsea
+        Monroe-Cassel (Insight Editions, 2019). The Elder Scrolls and Skyrim are
+        trademarks of Bethesda Softworks LLC, a ZeniMax Media company. This is a fan
+        project for a class.
+      </p>
+    </footer>
+
+  </body>
+</html>
